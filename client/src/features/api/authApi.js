@@ -76,6 +76,26 @@ export const authApi = createApi({
                 console.log("Load user failed:", error);
             },
         }),
+        userData: builder.query({
+            query: () => ({
+                url: "data",
+                method: "GET",
+            }),
+            async onQueryStarted(_, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(userLoggedIn({ user: result.data.user }));
+                } catch (error) {
+                    console.log("Load user failed:", error);
+                }
+            },
+            // Error handling for loadUser
+            onError: (error) => {
+                console.log("Load user failed:", error);
+            },
+        }),
+        
+        
         updateUser: builder.mutation({
             query: (formData) => ({
                 url: "profile/update",
@@ -88,6 +108,7 @@ export const authApi = createApi({
                 console.log("Update failed:", error);
             },
         }),
+        
     }),
 });
 
@@ -97,4 +118,5 @@ export const {
     useLogoutUserMutation,
     useLoadUserQuery,
     useUpdateUserMutation,
+    useUserDataQuery,
 } = authApi;

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-// Assuming you have a Button component
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -11,21 +10,19 @@ const JobTable = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Format the date to only show the date portion (e.g., "January 4, 2025")
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString(); // This will display the date in the user's locale format
+    return date.toLocaleDateString();
   };
 
-  // Fetch jobs from the API
   const fetchJobs = async () => {
     try {
       const response = await axios.get("http://localhost:8080/api/v1/job/get", {
-        withCredentials: true, // Ensure credentials are sent if needed
+        withCredentials: true,
       });
 
       if (response.data.success) {
-        setJobs(response.data.jobs); // Assuming response contains an array of jobs
+        setJobs(response.data.jobs);
       } else {
         toast.error(response.data.message || "Failed to fetch jobs.");
       }
@@ -41,48 +38,63 @@ const JobTable = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center text-gray-800 dark:text-gray-200">Loading...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="text-center text-red-500 dark:text-red-400">{error}</div>;
   }
 
   return (
     <div className="max-w-4xl mx-auto my-10 relative">
-      {/* Button added to top-right corner */}
+      {/* Button at top-right */}
       <div className="text-right">
-  <Button
-    variant="outline"
-    className="mb-4 bg-gray-800 hover:bg-gray-500 text-white rounded-md px-4 py-2 shadow-lg transition-transform transform hover:scale-105"
-    onClick={() => navigate("createJob")} // Define action here
-  >
-    New Job
-  </Button>
-</div>
-      
-      <h1 className="font-bold text-2xl mb-4">Job Listings</h1>
-      <div className="overflow-x-auto bg-white rounded-lg shadow-md">
-        <table className="table-auto w-full border-collapse border border-gray-200">
-          <thead className="bg-gray-100">
+        <Button
+          variant="outline"
+          className="mb-4 bg-gray-800 hover:bg-gray-600 text-white dark:bg-gray-700 dark:hover:bg-gray-600 rounded-md px-4 py-2 shadow-lg transition-transform transform hover:scale-105"
+          onClick={() => navigate("createJob")}
+        >
+          New Job
+        </Button>
+      </div>
+
+      <h1 className="font-bold text-2xl mb-4 text-gray-900 dark:text-white">Job Listings</h1>
+      <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <table className="table-auto w-full border-collapse border border-gray-200 dark:border-gray-700">
+          <thead className="bg-gray-100 dark:bg-gray-700">
             <tr>
-              <th className="px-4 py-2 border border-gray-200 text-left">Company</th>
-              <th className="px-4 py-2 border border-gray-200 text-left">Role</th>
-              <th className="px-4 py-2 border border-gray-200 text-left">Date</th>
-              <th className="px-4 py-2 border border-gray-200 text-left text-right">Action</th>
+              <th className="px-4 py-2 border border-gray-200 dark:border-gray-600 text-left text-gray-900 dark:text-white">
+                Company
+              </th>
+              <th className="px-4 py-2 border border-gray-200 dark:border-gray-600 text-left text-gray-900 dark:text-white">
+                Role
+              </th>
+              <th className="px-4 py-2 border border-gray-200 dark:border-gray-600 text-left text-gray-900 dark:text-white">
+                Date
+              </th>
+              <th className="px-4 py-2 border border-gray-200 dark:border-gray-600 text-left text-right text-gray-900 dark:text-white">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
             {jobs.length > 0 ? (
               jobs.map((job) => (
-                <tr key={job._id} className="hover:bg-gray-100">
-                  <td className="px-4 py-2 border border-gray-200">{job.company.name}</td>
-                  <td className="px-4 py-2 border border-gray-200">{job.title}</td>
-                  <td className="px-4 py-2 border border-gray-200 ">{formatDate(job.createdAt)}</td>
-                  <td className="px-4 py-2 border border-gray-200 text-right">
-                  <Button
+                <tr key={job._id} className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <td className="px-4 py-2 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white">
+                    {job.company.name}
+                  </td>
+                  <td className="px-4 py-2 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white">
+                    {job.title}
+                  </td>
+                  <td className="px-4 py-2 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white">
+                    {formatDate(job.createdAt)}
+                  </td>
+                  <td className="px-4 py-2 border border-gray-200 dark:border-gray-600 text-right">
+                    <Button
                       variant="outline"
-                      onClick={() => navigate(`view-applicants/${job._id}`)} // Navigate to job applicants page
+                      className="dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"
+                      onClick={() => navigate(`view-applicants/${job._id}`)}
                     >
                       Applicants
                     </Button>
@@ -91,7 +103,7 @@ const JobTable = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="4" className="text-center py-4">
+                <td colSpan="4" className="text-center py-4 text-gray-900 dark:text-white">
                   No jobs available.
                 </td>
               </tr>

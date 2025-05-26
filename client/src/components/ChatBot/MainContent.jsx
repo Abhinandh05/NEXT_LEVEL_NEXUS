@@ -76,7 +76,7 @@ const MainContent = () => {
   const profileImage = data?.user?.photoUrl || 'https://endertech.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Ffswbkokbwqb5%2F4vBAsCbQ9ITwI7Ym0MtXgY%2F96c4ec25d505f1b702f46a5a3d9dbe77%2FAI-Article-00.png&w=3840&q=75'; // Fallback to default image
 
   return (
-    <div className={`flex ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gradient-to-br from-gray-100 to-gray-300'} min-h-screen`}>
+    <div className={`flex ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gradient-to-br from-gray-100 to-gray-300'} min-h-screen `}>
       {/* Sidebar */}
       <div>
         <Sidebar />
@@ -107,7 +107,7 @@ const MainContent = () => {
 
               {/* Suggestions Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {[ 
+                {[
                   { text: "What is MERN Stack", icon: <FaCompass />, gradient: isDarkMode ? "from-blue-600 to-purple-700" : "from-blue-400 to-purple-500" },
                   { text: "What is a loop in JavaScript?", icon: <FaLightbulb />, gradient: isDarkMode ? "from-green-600 to-teal-700" : "from-green-400 to-teal-500" },
                   { text: 'What is the difference between "var" and "let"?', icon: <FaMessage />, gradient: isDarkMode ? "from-yellow-600 to-orange-700" : "from-yellow-400 to-orange-500" },
@@ -158,7 +158,13 @@ const MainContent = () => {
                 className={`flex-1 bg-transparent text-lg ${isDarkMode ? 'text-slate-300 placeholder-slate-400' : 'text-slate-700 placeholder-slate-400'} outline-none`}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    onSent(); // Call the send function when Enter is pressed
+                  }
+                }}
               />
+
               <div className="flex gap-4 items-center">
                 <FaMicrophone
                   onClick={toggleRecording}

@@ -27,8 +27,8 @@ export const register = async (req, res) => {
         const mailOptions = {
             from: process.env.SENDER_EMAIL,
             to: email,
-            subject: "Welcome to My Website",
-            html: EMAIL_WELCOME_TEMPLATE.replace("{{email}}", email),
+            subject:` Welcome to My Website, ${name}`,
+            html: EMAIL_WELCOME_TEMPLATE.replace("{{name}}", name).replace("{{email}}", email),
         };
 
         await transporter.sendMail(mailOptions);

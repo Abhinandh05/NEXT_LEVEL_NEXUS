@@ -60,7 +60,7 @@ const JobDetails = () => {
     }
 
     return (
-        <div className="p-5 bg-white rounded-lg shadow-md">
+        <div className="p-5 bg-white rounded-lg shadow-md  dark:bg-gray-900 border border-gray-100 dark:border-gray-800 ">
             <h1 className="text-2xl font-bold">{job.title}</h1>
             <p className="text-gray-500">{job.description}</p>
             <p><strong>Requirements:</strong> {job.requirements.join(', ')}</p>
