@@ -23,7 +23,7 @@ import EditCourse from './pages/admin/course/EditCourse';
 import Card from './components/Codingpraticarea/Card';
 import PythonQuiz from './components/Codingpraticarea/PythonQuiz';
 import CQuiz from './components/Codingpraticarea/CQuiz';
-import CPPQuiz from './components/Codingpraticarea/CppQuiz';
+// import CPPQuiz from './components/Codingpraticarea/CppQuiz';
 import JavaQuiz from './components/Codingpraticarea/JavaQuiz';
 import CSharpQuiz from './components/Codingpraticarea/CSharpQuiz';
 import VisualBasicQuiz from './components/Codingpraticarea/VisualBasicQuiz';
@@ -171,11 +171,11 @@ const routes = [
         element: <CQuiz />
 
       },
-      {
-        path: "Cpp-section",
-        element: <CPPQuiz />
+      // {
+      //   path: "Cpp-section",
+      //   element: <CPPQuiz />
 
-      },
+      // },
       {
         path: "Java-section",
         element: <JavaQuiz />
