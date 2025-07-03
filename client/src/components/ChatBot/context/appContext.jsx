@@ -14,7 +14,7 @@ export const AppContextProvider = (props) => {
     // Function to check authentication state
     const getAuthState = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:8080/api/v1/user/is-auth`, {
+            const { data } = await axios.get(`https://next-level-nexus.onrender.com/api/v1/user/is-auth`, {
                 withCredentials: true,
                 headers: { "Content-Type": "application/json" },
             });
@@ -41,7 +41,7 @@ export const AppContextProvider = (props) => {
     // Function to get user data
     const getUserData = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:8080/api/v1/user/data`, {
+            const { data } = await axios.get(`https://next-level-nexus.onrender.com/api/v1/user/data`, {
                 withCredentials: true,
                 headers: { "Content-Type": "application/json" },
             });
