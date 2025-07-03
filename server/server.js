@@ -48,3 +48,7 @@ app.use("/api/v1/application", applicationRoute);
 app.listen(PORT, () => {
   console.log(`Server listen at port ${PORT}`);
 })
+
+app.get("/", (_, res) => {
+    res.send("API is working!");
+});
