@@ -22,7 +22,7 @@ const JobDetails = () => {
     useEffect(() => {
         const fetchJobDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/v1/job/get/${id}`, { withCredentials: true });
+                const response = await axios.get(`https://next-level-nexus.onrender.com/api/v1/job/get/${id}`, { withCredentials: true });
                 if (response.data.success) {
                     setJob(response.data.job);
                     setIsApplied(response.data.job.isApplied || isApplied);
@@ -38,7 +38,7 @@ const JobDetails = () => {
 
     const applyJobHandler = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/v1/application/apply/${id}`, { withCredentials: true });
+            const response = await axios.get(`https://next-level-nexus.onrender.com/api/v1/application/apply/${id}`, { withCredentials: true });
             if (response.data.success) {
                 setIsApplied(true);
                 localStorage.setItem(`isApplied-${id}`, 'true'); // Store the application status in localStorage

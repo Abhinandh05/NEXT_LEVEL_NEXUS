@@ -18,7 +18,7 @@ const ViewApplicants = () => {
 
     const fetchApplicants = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/v1/application/${id}/applicants`, {
+        const response = await axios.get(`https://next-level-nexus.onrender.com/api/v1/application/${id}/applicants`, {
           withCredentials: true,
         });
         setApplicants(response.data.job.applications || []);
@@ -35,7 +35,7 @@ const ViewApplicants = () => {
   const statusHandler = async (status, applicantId) => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/v1/application/status/${applicantId}/update`,
+        `https://next-level-nexus.onrender.com/api/v1/application/status/${applicantId}/update`,
         { status },
         { withCredentials: true }
       );

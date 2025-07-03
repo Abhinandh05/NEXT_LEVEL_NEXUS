@@ -21,7 +21,7 @@ const Job = () => {
     const fetchJobs = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/job/get",
+          "https://next-level-nexus.onrender.com/api/v1/job/get",
           { withCredentials: true }
         );
         if (response.data.success) {

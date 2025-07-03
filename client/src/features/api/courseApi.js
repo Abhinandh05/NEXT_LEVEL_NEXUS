@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const COURSE_API = "http://localhost:8080/api/v1/course";
+const COURSE_API = "https://next-level-nexus.onrender.com/api/v1/course";
 
 export const courseApi = createApi({
   reducerPath: "courseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8080/api/v1/course",
+    baseUrl: "https://next-level-nexus.onrender.com/api/v1/course",
     credentials: "include",
   }),
   tagTypes: ["CreatorCourses", "Refetch_LECTURE"],

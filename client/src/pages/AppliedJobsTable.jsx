@@ -11,7 +11,7 @@ const AppliedJobsTable = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/v1/application/get", {
+        const response = await axios.get("https://next-level-nexus.onrender.com/api/v1/application/get", {
           withCredentials: true, // Include cookies if required
         });
         setApplications(response.data.application);

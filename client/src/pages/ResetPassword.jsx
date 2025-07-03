@@ -49,7 +49,7 @@ const ResetPassword = () => {
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`http://localhost:8080/api/v1/user/send-reset-otp`, { email });
+      const { data } = await axios.post(`https://next-level-nexus.onrender.com/api/v1/user/send-reset-otp`, { email });
       if (data.success) {
         toast.success(data.message);
         setIsEmailsent(true);

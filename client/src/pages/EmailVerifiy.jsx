@@ -53,7 +53,7 @@ const EmailVerify = () => {
         const otpArray = inputRefs.current.map((input) => input.value);
         const otp = otpArray.join("");
 
-        const { data } = await axios.post(`http://localhost:8080/api/v1/user/verify-account`, { otp });
+        const { data } = await axios.post(`https://next-level-nexus.onrender.com/api/v1/user/verify-account`, { otp });
 
         if (data.success) {
             toast.success(data.message);

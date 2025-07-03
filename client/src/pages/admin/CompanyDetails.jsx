@@ -24,7 +24,7 @@ const CompanyDetails = () => {
   useEffect(() => {
     const fetchCompanyDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/v1/company/get/${id}`, { withCredentials: true });
+        const response = await axios.get(`https://next-level-nexus.onrender.com/api/v1/company/get/${id}`, { withCredentials: true });
         setCompany(response.data.company);
         setFormData({
           ...response.data.company,
@@ -67,7 +67,7 @@ const CompanyDetails = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/v1/company/update/${id}`,
+        `https://next-level-nexus.onrender.com/api/v1/company/update/${id}`,
         data,
         { withCredentials: true }
       );

@@ -13,7 +13,7 @@ const RegisterCompany = () => {
     const registerNewCompany = async () => {
         try {
             const response = await axios.post(
-                "http://localhost:8080/api/v1/company/register",
+                "https://next-level-nexus.onrender.com/api/v1/company/register",
                 { companyName },
                 { withCredentials: true }
             );

@@ -29,7 +29,7 @@ const PostJobForm = () => {
     useEffect(() => {
         const fetchCompanies = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/v1/company/get', { withCredentials: true });
+                const response = await axios.get('https://next-level-nexus.onrender.com/api/v1/company/get', { withCredentials: true });
                 if (response.data.success) {
                     setCompanies(response.data.companies);
                 }
@@ -51,7 +51,7 @@ const PostJobForm = () => {
         setLoading(true); // Set loading to true when submitting
 
         try {
-            const response = await axios.post('http://localhost:8080/api/v1/job/post', formData, {
+            const response = await axios.post('https://next-level-nexus.onrender.com/api/v1/job/post', formData, {
                 withCredentials: true,
             });
             if (response.data.success) {
