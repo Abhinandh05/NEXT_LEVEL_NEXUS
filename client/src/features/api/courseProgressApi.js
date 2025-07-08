@@ -10,27 +10,27 @@ export const courseProgressApi = createApi({
     endpoints: (builder) => ({
         getCourseProgress:builder.query({
             query: (courseId) => ({
-                url:`/${courseId}`,
+                url:`${courseId}`,
                 method:"GET"
 
             })
         }),
         updateLectureProgress: builder.mutation({
             query: ({ courseId, lectureId }) => ({
-                url: `/${courseId}/lecture/${lectureId}/view`,
+                url: `${courseId}/lecture/${lectureId}/view`,
                 method: "POST",
             }),
         }),
         completeCourse: builder.mutation({
             query:(courseId) =>({
-                url:`/${courseId}/complete`,
+                url:`${courseId}/complete`,
                 method:"POST"
             }),
         }),
 
         inCompleteCourse: builder.mutation({
             query: (courseId) => ({
-                url: `/${courseId}/incomplete`,
+                url: `${courseId}/incomplete`,
                 method: "POST",
             }),
         })

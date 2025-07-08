@@ -20,7 +20,7 @@ export const courseApi = createApi({
     getSearchCourse: builder.query({
       query: ({ searchQuery = "", categories = [], sortByPrice = "" } = {}) => {
         // Build query string
-        let queryString = `/search?query=${encodeURIComponent(searchQuery)}`;
+        let queryString = `search?query=${encodeURIComponent(searchQuery)}`;
     
         // Append categories if provided
         if (categories && categories.length > 0) {
@@ -57,7 +57,7 @@ export const courseApi = createApi({
     }),
     editCourse: builder.mutation({
       query: ({ formData, courseId }) => ({
-        url: `/${courseId}`,
+        url: `${courseId}`,
         method: "PUT",
         body: formData,
       }),
@@ -65,21 +65,21 @@ export const courseApi = createApi({
     }),
     getCourseById: builder.query({
       query: (courseId) => ({
-        url: `/${courseId}`,
+        url: `${courseId}`,
         method: "GET",
       }),
       providesTags: ["CreatorCourses"],
     }),
     createLecture: builder.mutation({
       query: ({ lectureTitle, courseId }) => ({
-        url: `/${courseId}/lecture`,
+        url: `${courseId}/lecture`,
         method: "POST",
         body: { lectureTitle },
       }),
     }),
    getCourseLecture: builder.query({
       query: ( courseId ) => ({
-        url: `/${courseId}/lecture`,
+        url: `${courseId}/lecture`,
         method: "GET",
         
       }),
@@ -87,7 +87,7 @@ export const courseApi = createApi({
     }),
     editLecture: builder.mutation({
       query: ({ lectureTitle, videoInfo, isPreviewFree, courseId, lectureId }) => ({
-        url: `/${courseId}/lecture/${lectureId}`,
+        url: `${courseId}/lecture/${lectureId}`,
         method: "PUT",
         body: { lectureTitle, videoInfo, isPreviewFree },
 
@@ -96,7 +96,7 @@ export const courseApi = createApi({
     }),
     removeLecture: builder.mutation({
       query: ( lectureId ) => ({
-        url: `/lecture/${lectureId}`,
+        url: `lecture/${lectureId}`,
         method: "DELETE",
        
 
@@ -106,13 +106,13 @@ export const courseApi = createApi({
     }),
     getLectureById: builder.query({
       query: (lectureId) => ({
-        url: `/lecture/${lectureId}`,
+        url: `lecture/${lectureId}`,
         method: "GET",
       }),
     }),
     publishCourse: builder.mutation({
       query: ({ courseId, query }) => ({
-        url: `/${courseId}?publish=${query}`,
+        url: `${courseId}?publish=${query}`,
         method: "PATCH",
       }),
       invalidatesTags: ["CreatorCourses"],
