@@ -40,49 +40,64 @@ export const register = async (req, res) => {
     }
 };
 
-const generateToken = (res, user, message) => {
-  const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-    expiresIn: "1d",
-  });
-
-  return res
-    .cookie("token", token, {
-      httpOnly: true,
-      secure: true, // ⬅️ Required on Render or HTTPS environments
-      sameSite: "None", // ⬅️ Needed for cross-origin cookies
-      maxAge: 24 * 60 * 60 * 1000, // 1 day
-    })
-    .status(200)
-    .json({
-      message: message,
-      user,
-      success: true,
-    });
-};
-
 export const login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ success: false, message: "All fields are required." });
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({
+                message: "All fields are required.",
+                success: false
+            });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({
+                message: "Incorrect email or password.",
+                success: false,
+            });
+        }
+
+        const isPasswordMatch = await bcrypt.compare(password, user.password);
+        if (!isPasswordMatch) {
+            return res.status(400).json({
+                message: "Incorrect email or password.",
+                success: false,
+            });
+        }
+
+        const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
+            expiresIn: "1d",
+        });
+
+        const userData = {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+        };
+
+        return res
+            .cookie("token", token, {
+                httpOnly: true,
+                secure: true,       // ✅ Use true in production (HTTPS)
+                sameSite: "None",   // ✅ Required for cross-site cookie
+                maxAge: 24 * 60 * 60 * 1000,
+            })
+            .status(200)
+            .json({
+                message: `Welcome back ${user.name}`,
+                user: userData,
+                success: true,
+            });
+
+    } catch (error) {
+        console.error("Login error:", error);
+        return res.status(500).json({
+            message: "An error occurred while logging in.",
+            success: false,
+        });
     }
-
-    const user = await User.findOne({ email });
-    const isMatch = user && (await bcrypt.compare(password, user.password));
-
-    if (!isMatch) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Incorrect email or password" });
-    }
-
-    generateToken(res, user, `Welcome back ${user.name}`);
-  } catch (error) {
-    console.error("Login Error:", error);
-    return res.status(500).json({ success: false, message: "Failed to login" });
-  }
 };
 export const logout = async (_, res) => {
     try {
