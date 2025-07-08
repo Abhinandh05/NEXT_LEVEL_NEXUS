@@ -62,7 +62,8 @@ const CourseTab = () => {
         try {
             const response = await publishCourse({ courseId, query: action });
             if (response.data) {
-                console.log('Publish response:', response.data);
+                toast.success(response.data.message);
+                
                 // Refetch course data after mutation to ensure it reflects the new published status
                 await refetch();
                 toast.success(response.data.message);
