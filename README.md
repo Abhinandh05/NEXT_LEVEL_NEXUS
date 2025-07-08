@@ -108,7 +108,7 @@ Our mission is to provide a seamless, intuitive user experience while maintainin
   <img src="https://via.placeholder.com/800x450/667eea/ffffff?text=Live+Demo+Screenshot" alt="Live Demo" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
   
   <p>
-    <a href="https://next-level-nexus-demo.vercel.app" target="_blank">
+    <a href="https://next-level-nexus-1npa.onrender.com" target="_blank">
       <img src="https://img.shields.io/badge/Live%20Demo-Visit%20Site-brightgreen?style=for-the-badge&logo=vercel" alt="Live Demo">
     </a>
   </p>
