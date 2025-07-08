@@ -16,7 +16,14 @@ export const appStore = configureStore({
 
 
 const initializeApp = async () => {
-  await appStore.dispatch(authApi.endpoints.loadUser.initiate({}, { forceRefetch: true }));
+  try {
+    await appStore.dispatch(
+      authApi.endpoints.loadUser.initiate({}, { forceRefetch: true })
+    );
+  } catch (error) {
+    console.error("Failed to load user:", error);
+  }
 };
 
 initializeApp();
+
