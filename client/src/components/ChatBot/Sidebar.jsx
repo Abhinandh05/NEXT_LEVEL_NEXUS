@@ -1,74 +1,80 @@
-import React, { useContext, useState } from "react"
-import { IoMenu } from "react-icons/io5"
-import { FaMessage, FaPlus, FaQuestion } from "react-icons/fa6"
-import { MdHistory } from "react-icons/md"
-import { IoSettings } from "react-icons/io5"
-import { Context } from "./context/Context"
+import React, { useContext } from "react";
+import { IoMenu } from "react-icons/io5";
+import { FaMessage, FaPlus, FaQuestion } from "react-icons/fa6";
+import { MdHistory } from "react-icons/md";
+import { IoSettings } from "react-icons/io5";
+import { Context } from "./context/Context";
 
-const Sidebar = () => {
-  const [extended, setExtended] = useState(false)
-  const { onSent, prevPrompt, setRecentPrompt, newChat } = useContext(Context)
+const Sidebar = ({ isOpen, setIsOpen }) => {
+  const { onSent, prevPrompt, setRecentPrompt, newChat } = useContext(Context);
 
   const loadPrompt = async (prompt) => {
-    setRecentPrompt(prompt)
-
-    await onSent(prompt)
-  }
+    setRecentPrompt(prompt);
+    await onSent(prompt);
+    setIsOpen(false); // Auto-close sidebar on mobile after selection
+  };
 
   return (
-    <div className="min-h-screen inline-flex flex-col justify-between bg-[#e4e7eb] py-[25px] px-[15px]">
+    <div
+      className={`
+        fixed top-0 left-0 h-screen z-40 bg-[#e4e7eb] w-[250px] sm:flex 
+        flex-col justify-between py-6 px-5 transition-transform duration-300 
+        ${isOpen ? "translate-x-0" : "-translate-x-full"} 
+        sm:translate-x-0 sm:relative sm:w-[250px]
+      `}
+    >
+      {/* Top Section */}
       <div>
-        <IoMenu
-          onClick={() => setExtended(!extended)}
-          className="text-2xl block cursor-pointer"
-        />
+        {/* Close Icon for mobile */}
+        <div className="sm:hidden mb-4">
+          <IoMenu onClick={() => setIsOpen(false)} className="text-2xl cursor-pointer" />
+        </div>
 
         <div
-          onClick={() => newChat()}
-          className="mt-[10px] inline-flex items-center gap-[10px] py-[10px] px-[15px] text-[14px] text-gray-500 cursor-pointer bg-gray-300 rounded-full"
+          onClick={() => {
+            newChat();
+            setIsOpen(false);
+          }}
+          className="flex items-center gap-3 py-2 px-3 text-sm text-gray-600 bg-gray-300 rounded-full cursor-pointer"
         >
-          <FaPlus className="text-2xl" />
-
-          {extended && <p>New Chat</p>}
+          <FaPlus className="text-xl" />
+          <span>New Chat</span>
         </div>
 
-        {extended && (
-          <div className="flex flex-col animate-fadeIn duration-1000">
-            <p className="mt-7 mb-5">Recent</p>
-
-            {prevPrompt?.map((item, index) => {
-              return (
-                <div
-                  onClick={() => loadPrompt(item)}
-                  className="flex items-center gap-2 p-2 pr-10 rounded-[50px] text-slate-700 cursor-pointer hover:bg-gray-300"
-                >
-                  <FaMessage className="text-2xl" />
-                  <p>{item.slice(0, 18)}...</p>
-                </div>
-              )
-            })}
+        <div className="mt-6">
+          <p className="text-sm font-semibold text-gray-700 mb-3">Recent</p>
+          <div className="flex flex-col gap-2">
+            {prevPrompt?.map((item, index) => (
+              <div
+                key={index}
+                onClick={() => loadPrompt(item)}
+                className="flex items-center gap-3 p-2 rounded-full text-gray-700 hover:bg-gray-300 cursor-pointer"
+              >
+                <FaMessage className="text-xl" />
+                <span className="text-sm truncate">{item.slice(0, 18)}...</span>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
       </div>
 
-      <div className="flex flex-col">
-        <div className="flex items-center gap-2 p-2 pr-10 rounded-[50px] text-slate-700 cursor-pointer hover:bg-gray-300">
-          <FaQuestion className="text-2xl" />
-          {extended && <p>Help</p>}
+      {/* Bottom Menu */}
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-3 p-2 rounded-full text-gray-700 hover:bg-gray-300 cursor-pointer">
+          <FaQuestion className="text-xl" />
+          <span>Help</span>
         </div>
-
-        <div className="flex items-center gap-2 p-2 pr-10 rounded-[50px] text-slate-700 cursor-pointer hover:bg-gray-300">
-          <MdHistory className="text-2xl" />
-          {extended && <p>Activity</p>}
+        <div className="flex items-center gap-3 p-2 rounded-full text-gray-700 hover:bg-gray-300 cursor-pointer">
+          <MdHistory className="text-xl" />
+          <span>Activity</span>
         </div>
-
-        <div className="flex items-center gap-2 p-2 pr-10 rounded-[50px] text-slate-700 cursor-pointer hover:bg-gray-300">
-          <IoSettings className="text-2xl" />
-          {extended && <p>Settings</p>}
+        <div className="flex items-center gap-3 p-2 rounded-full text-gray-700 hover:bg-gray-300 cursor-pointer">
+          <IoSettings className="text-xl" />
+          <span>Settings</span>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

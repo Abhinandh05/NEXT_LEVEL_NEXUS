@@ -124,7 +124,6 @@ const Navbar = () => {
       </div>
       {/* Mobile */}
       <div className="flex md:hidden items-center justify-between px-4 h-full">
-        <GraduationCap size={"30"} />
         <h1 className="font-extrabold text-2xl">NEXT LEVEL NEXUS</h1>
         <MobileNavbar user={user} logoutHandler={logoutHandler} />
       </div>
@@ -159,6 +158,9 @@ const MobileNavbar = ({ user, logoutHandler }) => {
             <>
               <Link to="/my-learning">My Learning</Link>
               <Link to="/profile">Edit Profile</Link>
+              <Link to="/skillspring" className="flex items-center gap-2">
+                      SkillSpring
+                    </Link>
               <button onClick={logoutHandler}>Log out</button>
               {user?.role === "instructor" && (
                 <Button type="submit" onClick={() => navigate("/admin/dashboard")}>Dashboard</Button>
